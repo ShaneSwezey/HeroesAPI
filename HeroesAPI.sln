@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeroesAPI", "HeroesAPI\HeroesAPI.csproj", "{EA192F9E-75CE-42C4-84E9-10B877499380}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA192F9E-75CE-42C4-84E9-10B877499380}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA192F9E-75CE-42C4-84E9-10B877499380}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA192F9E-75CE-42C4-84E9-10B877499380}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA192F9E-75CE-42C4-84E9-10B877499380}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
