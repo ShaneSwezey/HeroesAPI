@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PracticeAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class HeroesController : Controller
+    public class HeroesController : ControllerBase
     {
         // DbContext
         private readonly HeroApiContext context;

@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using HeroesAPI.Models;
+﻿using HeroesAPI.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace HeroesAPI
 {
@@ -39,9 +33,6 @@ namespace HeroesAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
-
-
             app.UseCors(Options => Options.WithOrigins("http://localhost:4200").AllowAnyMethod());
             app.UseMvc(routes => 
             {
