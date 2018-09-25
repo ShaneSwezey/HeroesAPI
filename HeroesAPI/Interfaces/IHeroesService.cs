@@ -8,9 +8,9 @@ namespace HeroesAPI.Interfaces
     public interface IHeroesService
     {
         Task<IEnumerable<Hero>> GetAllHeroes();
-        Task<Hero> GetHeroById();
+        Task<Hero> GetHeroById(int id);
         Task<Hero> GetHeroByName(string name);
-        Task<Hero> GetHeroByRole(string role);
-        Task<Hero> GetHeroByUniverse(string universe);
+        Task<IEnumerable<Hero>> GetHeroByRole(string role);
+        Task<IEnumerable<Hero>> GetHeroByUniverse(string universe);
     }
 }
