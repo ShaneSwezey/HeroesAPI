@@ -1,29 +1,26 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using HeroesAPI.Models;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using HeroesAPI.Interfaces;
 
 namespace PracticeAPI.Controllers
 {
     [Route("api/[controller]")]
     public class HeroesController : ControllerBase
     {
-        // DbContext
-        private readonly HeroApiContext context;
 
-        public HeroesController(HeroApiContext context)
+        private readonly IHeroesService _heroService;
+
+        public HeroesController(IHeroesService heroService)
         {
-            this.context = context; 
+            _heroService = heroService; 
         }
 
         // Returns all Hero Models from postgresql database.
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var heroList =  await context.Heroes.OrderBy(n => n.Name)
-            .ToListAsync();
+            var heroList = await _heroService.GetAllHeroes();
             
             return Ok(heroList);
         }
@@ -32,12 +29,9 @@ namespace PracticeAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Id(int id)
         {
-            var hero = await context.Heroes
-            .FirstOrDefaultAsync(h => h.HeroId == id);
-            
-            if (hero == null) return NotFound("Hero was not found!");
+            var hero = await _heroService.GetHeroById(id);
 
-            return Ok(hero);
+            return hero == null ? NotFound("Hero was not found!") : (IActionResult)Ok(hero);
         }
 
         // Returns Hero model by name.
@@ -46,13 +40,9 @@ namespace PracticeAPI.Controllers
         {
             if (name == null) return NotFound("Name can not be null.");
 
-            var hero = await context.Heroes
-            .FirstOrDefaultAsync(h => h.Name
-            .Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            var hero = await _heroService.GetHeroByName(name);
 
-            if (hero == null) return NotFound($"Hero: {name} was not found!");
-
-            return Ok(hero);
+            return hero == null ? NotFound($"Hero: {name} was not found!") : (IActionResult)Ok(hero);
         }
 
         // Returns List of all Hero models associated by role.
@@ -61,14 +51,9 @@ namespace PracticeAPI.Controllers
         {            
             if (role == null) return NotFound("Role can not be null.");
 
-            var roleList = await context.Heroes.Where(h => 
-            h.Role.Equals(role, StringComparison.InvariantCultureIgnoreCase))
-            .OrderBy(n => n.Name)
-            .ToListAsync();
+            var roleList = await _heroService.GetHeroByRole(role);
 
-            if (roleList.Count == 0) return NotFound($"Role: {role} not found!");
-
-            return Ok(roleList);
+            return !roleList.Any() ? NotFound($"Role: {role} not found!") : (IActionResult)Ok(roleList);
         }
 
         // Returns list of all Hero models associated by universe.
@@ -77,14 +62,9 @@ namespace PracticeAPI.Controllers
         {
             if (universe == null) return NotFound("Universe can not be null.");
 
-            var universeList = await context.Heroes.Where(u =>
-            u.Universe.Equals(universe, StringComparison.InvariantCultureIgnoreCase))
-            .OrderBy(n => n.Name)
-            .ToListAsync();
+            var universeList = await _heroService.GetHeroByUniverse(universe);
 
-            if (universeList.Count == 0) return NotFound($"Universe: {universe} not found!");
-
-            return Ok(universeList);
+            return !universeList.Any() ? NotFound($"Universe: {universe} not found!") : (IActionResult)Ok(universeList);
         }
     }
 }
