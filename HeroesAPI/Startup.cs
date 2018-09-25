@@ -1,4 +1,6 @@
-﻿using HeroesAPI.Models;
+﻿using HeroesAPI.Interfaces;
+using HeroesAPI.Models;
+using HeroesAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +23,8 @@ namespace HeroesAPI
         {
             services.AddEntityFrameworkNpgsql().AddDbContext<HeroApiContext>(Opt
             => Opt.UseNpgsql(Configuration.GetConnectionString("HeroApiConnection")));
+
+            services.AddTransient<IHeroesService, HeroService>();
 
             services.AddCors();
             services.AddMvc();
