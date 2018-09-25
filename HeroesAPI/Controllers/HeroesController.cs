@@ -86,6 +86,5 @@ namespace PracticeAPI.Controllers
 
             return Ok(universeList);
         }
-
     }
 }
